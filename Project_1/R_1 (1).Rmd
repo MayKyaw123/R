@@ -1,0 +1,137 @@
+---
+title: "R Basics"
+author: "Your Name and id"
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Part 1: Basic R manipulation.
+a. In the code segment below, assign the value 2 to variable x, and the value 6 to variable y. Then compute the sum 'x+y':
+```{r}
+# x <- 
+# y <- 
+# print(_____)
+```
+
+b. Construct a list of all even numbers between 1 and 100, assign this to the variable 'even'. Construct a list of 100 numbers, starting with 1, such that the difference between consecutive numbers is three, assign this to the variable 'threes'.
+Construct a list of 100 equally spaced numbers between 0 and 2. Assign this to the variable x.
+```{r}
+  
+```
+
+c. Define a function that computes the square of the input value, call this function square:
+```{r}
+
+```
+d. Plot trignometric functions sine and cosine for values of x between 0 and 10. Also plot the 'square' function for input values between 0 and 2.
+```{r}
+  
+```
+
+# Part 2: Working with data in R. 
+
+The dataset 'iris' is part of the in-built data repository of R. Use the 'data' command to load the iris dataset. 
+```{r}
+
+```
+
+The standard way of storing data in R is a two-dimensional dataframe. The columns correspond to the the variables and the rows correspond to observations. 
+To get a sense what the data frame looks like, we use the 'head' command. Apply the head command to the dataframe iris. 
+
+```{r}
+
+```
+What are the variable/column names in this dataframe? 
+
+There is an easy way to find all the column names of a dataframe, using the 'colnames' command. Now, apply that command to the iris dataset. 
+```{r}
+
+```
+
+We will now work with the data. The first step is to be able to isolate a column/variable. We do that using the '\$' operator. Assign to x, the values of the column "Petal.Length".
+
+```{r}
+
+```
+
+Note that x is now a list of numbers, which corresponds to the petal lenghts of the three different species of the flower iris. 
+
+Let us compute the summarry statistics for x, using the min, max, first, second, and third quartile, and the mean.
+
+```{r}
+
+```
+There is an easy way to summarise these for the entire dataframe using the summary command. Use this command and compare the values that your manually computed above to the output of the 'summary' command. 
+
+```{r}
+
+```
+
+We want to see if there is any relationship between the variables. To do so, it is important that we separate data based on the species. Use the filter command (from the library 'dplyr') to create three new dataframes callled "setosa", "versicolor", and "virginica". 
+Use the "head" command to view the first five rows of these data frames.
+
+```{r}
+  
+```
+
+
+# Data Visualization
+Consider the following sample data:
+```{r}
+samp_data <- c(1.54,0.56,1.67,1.54,1.30,1.15,1.59,-0.22,1.01,1.03,1.02,1.77,1.13,0.15,1.02,
+               0.27,1.40,0.98,1.12,1.12,0.83,0.79,1.29,0.35,1.24,1.35,0.82,1.63,1.34,0.96,
+               1.37,0.14,1.43,2.00,1.13,1.39,1.18,0.99,0.65,0.88,1.11,1.63,1.53,0.91,0.02,
+               0.84,1.54,1.21,1.56,1.02,0.87,0.63,1.68,0.71,1.43,0.42,0.80,1.40,1.45,1.34,
+               1.57,0.98,0.99,1.04,1.15,0.47,0.82,0.89,0.78,1.02,1.56,1.67,1.32,1.23,0.46,
+               -0.06,0.90,0.94,1.60,0.52,1.04,1.79,0.66,0.76,1.47,0.68,1.38,0.35,1.30,1.30,
+               0.89,1.62,0.66,0.97,1.27,1.03,1.12,0.48,0.97,0.77,3.00,3.30,2.73,3.21,3.92,
+               3.33,2.25,2.58,3.45,2.86,3.01,3.27,2.65,3.48,3.18,2.01,3.42,2.13,3.15,2.77,
+               2.98,3.18,3.20,2.96,2.79,3.15,3.42,2.16,3.41,3.31,3.52,3.28,3.90,3.25,2.91,
+               2.98,3.25,3.02,2.52,2.97,2.31,3.30,2.50,3.19,2.46,2.82,2.83,2.48,2.55,3.18,
+               3.56,3.69,3.04,2.91,2.94,2.81,2.93,3.11,2.28,2.63,3.37,3.49,3.08,3.49,2.49,
+               2.89,3.15,3.21,2.79,3.46,3.56,3.33,3.15,2.18,3.08,2.24,4.31,3.23,3.35,3.18,
+               3.08,3.79,2.44,3.04,2.36,2.23,3.55,2.70,3.01,3.48,3.68,3.37,3.01,3.18,2.13,
+               3.39,3.37,2.86,3.34,3.16,2.54,3.58,3.63,2.43,3.94,2.80,2.41,2.25,2.87,3.17,
+               2.07,2.63,2.99,3.21,2.57,2.93,3.32,2.49,1.89,2.98,2.83,3.80,2.92,2.90,3.00,
+               3.10,2.41,2.66,2.77,2.69,2.99,2.50,3.21,2.98,3.45,3.83,3.00,2.54,3.86,2.80,
+               2.83,2.97,2.36,2.88,3.05,2.89,1.71,3.64,2.49,3.45,3.41,3.01,2.57,3.87,3.23,
+               2.57,2.56,2.85,2.83,3.19,3.15,3.17,2.90,3.29,3.46,2.43,3.04,2.81,3.28,2.82,
+               3.00,3.78,3.16,3.96,4.03,3.57,3.95,3.20,2.41,2.58,2.79,3.23,2.77,2.97,3.34,
+               3.13,3.78,2.70,3.14,3.25,2.26,3.99,3.10,3.76,2.92,2.69,3.58,3.11,3.59,2.74,
+               3.82,2.07,2.81,1.74,3.45,3.38,3.74,2.79,2.71,2.83,2.74,1.58,2.94,3.53,3.01,
+               2.21,2.61,2.95,2.58,3.92,2.68,2.85,3.06,2.86,3.43,3.16,3.02,2.29,3.74,3.49,
+               4.04,1.66,2.98,1.70,3.80,3.47,3.26,2.55,2.92,3.46,3.28,3.31,2.32,2.78,4.08,
+               3.78,2.49,3.26,2.88,3.23,3.15,2.62,3.73,3.03,2.78,3.00,2.61,2.48,2.03,3.04,
+               3.64,3.43,3.27,2.41,3.60,2.75,2.94,3.23,3.22,2.81,2.72,3.62,2.94,3.17,3.11,
+               2.60,3.11,3.45,2.37,3.07,3.09,3.90,2.86,3.23,3.50,2.84,2.17,2.58,3.57,2.95,
+               2.56,2.42,3.38,3.28,3.19,2.77,3.27,4.01,3.65,3.39)
+```
+
+Use the 'hist' function to visualize samp_data. Furthermore, use different values of for the "breaks" parameter, which species the number of bins, to explore the shape of the data.
+
+```{r}
+
+```
+
+What are some good values for the "breaks" parameter? Why?
+
+Is the sample mean a good measure of location for this dataset? Why? 
+
+Now use the "stem" function to construct a stem-leaf plot for this data set. 
+```{r}
+
+```
+Do you notice anything odd? (It might help if you compute the Stem plot by hand for the first few values for this dataset)
+Your Answer:
+
+The default "scale" parameter is 1. Plot the two stem plots when the scale parameter is set to 2 and 0.5 respectively.
+```{r}
+
+```
+
+
+
