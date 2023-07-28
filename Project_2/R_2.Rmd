@@ -1,6 +1,6 @@
 ---
 title: "Probability and Counting"
-author: " Your Name and id"
+author: "May Kyaw"
 output:
   html_document:
     number_sections: yes    
